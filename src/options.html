@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        #header {
+            display: block;
+            margin: 50px auto;
+            margin-bottom: 10px;
+            padding: 0 10px;
+            padding-bottom: 10px;
+            width: 850px;
+            border-bottom: 1px solid #d3d3d3;
+        }
+        #header span, #header input {
+            width: 200px;
+            display: inline-block;
+        }
+        #header input {
+            border: none;
+            border-left: 1px solid #d3d3d3;
+            padding-left: 10px;
+            line-height: 25px;
+        }
+        #list, #add {
+            display: block;
+            margin: 0 auto;
+            padding: 0 10px;
+            width: 850px;
+        }
+        #list #item {
+            margin: 20px 0;
+        }
+        #list #item span,
+        #list #item #item-password,
+        #add input {
+            width: 200px;
+            display: inline-block;
+        }
+        #list #item span#item-password {
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <span>Name</span>
+        <span>User Name</span>
+        <span>Password</span>
+        <input id="secret-search" placeholder="search" />
+    </div>
+    <div id="add">
+        <input data-type="name" placeholder="Secret Name"/>
+        <input data-type="account" placeholder="User Name"/>
+        <input data-type="password" placeholder="Password"/>
+        <button disabled id="add-button">Add New</button>
+    </div>
+    <div id="list">
+    </div>
+</body>
+<script src="./options.js"></script>
+
+</html>

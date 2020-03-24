@@ -1,0 +1,25 @@
+body,html {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    color: #3e3e3e;
+}
+
+input {
+    box-sizing: border-box;
+    font-size: 18px;
+    border: #d3d3d3 1px solid;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
+input::placeholder {
+    color: #d3d3d3;
+    font-style: italic;
+}
+
+Button {
+    box-sizing: border-box;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
