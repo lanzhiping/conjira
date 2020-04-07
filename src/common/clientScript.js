@@ -18,10 +18,15 @@ const clientScript = (salt, encrypted) => `
         };
         const { username, pwd } = getInputs();
         if (username && pwd) {
-            username.value = JSON.parse(decipher('${salt}')('${encrypted}')).account;
-            pwd.value = JSON.parse(decipher('${salt}')('${encrypted}')).password;
+            username.value = '';
+            pwd.value = '';
+
+            setTimeout(() => {
+                username.value = JSON.parse(decipher('${salt}')('${encrypted}')).account;
+                pwd.value = JSON.parse(decipher('${salt}')('${encrypted}')).password;
+            }, 200);
         }
-    })()
+    })();
 `;
 
 module.exports = clientScript;

@@ -1,9 +1,9 @@
-const View = require('./View');
-const { loadSecrets, removeSecret, updateSecret, loadSecretById, addSecret } = require('./storageService');
+const { loadSecretBySearch, removeSecret, updateSecret, loadSecretById, addSecret } = require('../common/storageService');
+const View = require('../common/View');
 
 const showSecrets = async ({ list, search }) => {
-    const secrets = await loadSecrets(search.value);
-    renderList(list, secrets)
+    loadSecretBySearch(search.value)
+        .then((secrets) => renderList(list, secrets))
 }
 
 const renderList = (listElement, secrets) => {
@@ -80,8 +80,8 @@ const onListClick = async (event, target, elements) => {
 
     if (targetId === 'item-delete') {
         const secretId = event.target.parentElement.getAttribute('data-id');
-        await removeSecret({ _id: secretId });
-        showSecrets(elements);
+
+        removeSecret({ _id: secretId }).then(() => showSecrets(elements));
     }
 }
 
@@ -90,19 +90,15 @@ const onAddNewClick = async (event, target, elements) => {
         return;
     }
 
-    const newSecret = [...target.children].reduce((secret, input) => {
-        if (input.localName === 'input') {
-            return {
-                ...secret,
-                [input.getAttribute('data-type')]: input.value
-            }
-        }
-        return secret;
-    }, {});
+    const inputElements = [...target.children].filter(el => el.localName === 'input');
+    const newSecret = inputElements.reduce((secret, input) => ({
+        ...secret,
+        [input.getAttribute('data-type')]: input.value,
+    }), {});
 
-    await addSecret(newSecret);
-    [...target.children].forEach(input => input.value = '');
-    showSecrets(elements);
+    return addSecret(newSecret)
+        .then(() => showSecrets(elements))
+        .then(() => inputElements.forEach(input => input.value = ''));
 };
 
 const onAddInput = (event, target, elements) => {

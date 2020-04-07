@@ -8,8 +8,8 @@ module.exports = {
 
     entry: {
         background: './src/background.js',
-        options: './src/options.js',
-        popup: './src/popup.js'
+        'options/index': './src/options/index.js',
+        'popup/index': './src/popup/index.js'
     },
 
     output: {
@@ -22,13 +22,19 @@ module.exports = {
     devtool: false,
 
     plugins: [
-        new CleanWebpackPlugin(),
-        new CopyPlugin([
-            { from: 'icons/*', to: 'icons/[name].[ext]' },
-            { from: 'src/*', to: '[name].[ext]', test: /([^/]+)\/(.+)\.(json|html|css)$/ },
-        ]),
-        (process.env.NODE_ENV === 'production' ? new ZipPlugin({
-            filename: 'conjira.zip',
-        }) : undefined)
-    ],
+        new CleanWebpackPlugin({
+            cleanStaleWebpackAssets: false,
+        }),
+
+        new CopyPlugin([{
+            from: 'src/**/*',
+            to: '[path][name].[ext]',
+            test: /([^/]+)\/(.+)\.(json|html|css|png)$/,
+            transformPath: (targetPath) => targetPath.replace('src/', ''),
+        }]),
+
+        (process.env.NODE_ENV === 'production') && new ZipPlugin({
+            filename: 'conjira.zip'
+        }),
+    ].filter(Boolean),
 };

@@ -23,9 +23,9 @@
     ],
     "persistent": false
   },
-  "options_page": "options.html",
+  "options_page": "options/index.html",
   "page_action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup/index.html",
     "default_icon": {
       "16": "icons/icon_16.png",
       "32": "icons/icon_32.png",

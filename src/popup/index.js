@@ -1,38 +1,13 @@
 const cryptoRandomString = require('crypto-random-string');
-const View = require('./View');
-const clientScript = require('./clientScript');
-const { loadSecrets, loadSecretById } = require('./storageService')
-
-const cipher = salt => {
-    const textToChars = text => text.split('').map(c => c.charCodeAt(0));
-    const byteHex = n => ("0" + Number(n).toString(16)).substr(-2);
-    const applySaltToChar = code => textToChars(salt).reduce((a,b) => a ^ b, code);
-
-    return text => text.split('')
-        .map(textToChars)
-        .map(applySaltToChar)
-        .map(byteHex)
-        .join('');
-}
-
-const runOnCurrentTab = (callback) => new Promise((resolve) => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (!tabs[0] || tabs[0].url.startsWith('chrome://')) {
-            return;
-        }
-
-        chrome.tabs.executeScript(
-            tabs[0].id,
-            {code: `eval("${callback.replace(/\n/g, '').replace(/\s\s+/g, '')};")`}
-        )
-        resolve();
-    });
-});
+const clientScript = require('../common/clientScript');
+const encrypt = require('../common/encrypt');
+const View = require('../common/View');
+const { loadSecretBySearch, loadSecretById } = require('../common/storageService');
+const { runOnCurrentTab } = require('../common/chromeService');
 
 const renderSecrets = async ({ list, search }) => {
-    const secrets = await loadSecrets(search.value);
+    const secrets = await loadSecretBySearch(search.value);
 
-    console.log('secrets: ', secrets)
     if (secrets.length === 0) {
         list.innerText = 'No secret yet.'
     }
@@ -68,9 +43,9 @@ const onSecretClick = async (event) => {
     }
 
     const secret = await loadSecretById(secretId);
-    const shortId = cryptoRandomString({ length: 20 });
+    const seed = cryptoRandomString({ length: 20 });
 
-    runOnCurrentTab(clientScript(shortId, cipher(shortId)(JSON.stringify(secret))));
+    runOnCurrentTab(clientScript(seed, encrypt(seed)(JSON.stringify(secret))));
 }
 
 const popup = new View({
