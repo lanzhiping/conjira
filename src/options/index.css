@@ -16,6 +16,7 @@
     border-left: 1px solid #d3d3d3;
     padding-left: 10px;
     line-height: 25px;
+    border-radius: 0;
 }
 #list, #add {
     display: block;
@@ -35,4 +36,51 @@
 #list #item span#item-password {
     font-size: 14px;
     box-sizing: border-box;
+}
+#footer {
+    position: fixed;
+    background: #3e3e3e;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    text-align: center;
+}
+#footer:before {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+#footer .link {
+    display: inline-block;
+    vertical-align: middle;
+    width: 150px;
+}
+#footer .link a {
+    padding: 10px 0;
+    margin: 0 20px;
+    color: #e3e3e3;
+    text-shadow: none;
+    position: relative;
+    text-decoration: none;
+}
+#footer .link a:before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    padding: 10px 0;
+    width: 0%;
+    border-bottom: 2px solid #fff;
+    content: '';
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    transition: width 0.3s;
+}
+#footer .link a:hover {
+    color: #ffffff;
+}
+#footer .link a:hover::before{
+    width: 100%;
 }
