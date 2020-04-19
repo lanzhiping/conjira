@@ -17,12 +17,15 @@ const clientScript = (salt, encrypted) => `
             return { username, pwd };
         };
         const { username, pwd } = getInputs();
-        if (username && pwd) {
+        if (username) {
             username.value = '';
-            pwd.value = '';
-
             setTimeout(() => {
                 username.value = JSON.parse(decipher('${salt}')('${encrypted}')).account;
+            }, 200);
+        }
+        if (pwd) {
+            pwd.value = '';
+            setTimeout(() => {
                 pwd.value = JSON.parse(decipher('${salt}')('${encrypted}')).password;
             }, 200);
         }
