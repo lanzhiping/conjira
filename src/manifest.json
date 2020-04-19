@@ -9,7 +9,6 @@
     "activeTab",
     "declarativeContent",
     "storage",
-    "tabs",
     "https://*/*"
   ],
   "web_accessible_resources": [
