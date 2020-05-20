@@ -1,6 +1,6 @@
 {
   "name": "conjira",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a chrome extension",
   "scripts": {
     "dev": "webpack --watch",
