@@ -16,17 +16,25 @@ const clientScript = (salt, encrypted) => `
                 .find(e => /password/.test(e.getAttribute('name')));
             return { username, pwd };
         };
+        const triggerInputEvent = (element) => {
+            const inputEvent = new Event('input', { bubbles: true, cancelable: true });
+            const changeEvent = new Event('change', { bubbles: true, cancelable: true });
+            element.dispatchEvent(inputEvent);
+            element.dispatchEvent(changeEvent);
+        };
         const { username, pwd } = getInputs();
         if (username) {
             username.value = '';
             setTimeout(() => {
                 username.value = JSON.parse(decipher('${salt}')('${encrypted}')).account;
+                triggerInputEvent(username);
             }, 200);
         }
         if (pwd) {
             pwd.value = '';
             setTimeout(() => {
                 pwd.value = JSON.parse(decipher('${salt}')('${encrypted}')).password;
+                triggerInputEvent(pwd);
             }, 200);
         }
     })();
