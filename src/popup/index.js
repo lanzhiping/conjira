@@ -15,11 +15,10 @@ const renderSecrets = async ({ list, search }) => {
 }
 
 const renderList = (listElement, secrets) => {
-    const secretElements = secrets.map(({ _id, name, account }) => {
+    const secretElements = secrets.map(({ _id, name }) => {
         return `
             <div id="item" data-id="${_id}">
                 <span id="item-name">${name}</span>
-                <span id="item-account">(${account})</span>
             </div>
         `;
     }).join('')
