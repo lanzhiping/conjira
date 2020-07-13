@@ -10,7 +10,7 @@ const clientScript = (salt, encrypted) => `
                 .join('');
         };
         const getInputs = () => {
-            const username = [...document.querySelectorAll('input[type=text]')]
+            const username = [...document.querySelectorAll('input[type=text],input[type=email]')]
                 .find(e => /(user[Nn]ame|login)/.test(e.getAttribute('name')));
             const pwd = [...document.querySelectorAll('input[type=password]')]
                 .find(e => /password/.test(e.getAttribute('name')));
