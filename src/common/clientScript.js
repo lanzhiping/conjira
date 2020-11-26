@@ -11,9 +11,9 @@ const clientScript = (salt, encrypted) => `
         };
         const getInputs = () => {
             const username = [...document.querySelectorAll('input[type=text],input[type=email]')]
-                .find(e => /(user[Nn]ame|login)/.test(e.getAttribute('name')));
+                .find(e => /([Uu]ser[Nn]ame|[Ll]ogin)/.test(e.getAttribute('name')));
             const pwd = [...document.querySelectorAll('input[type=password]')]
-                .find(e => /password/.test(e.getAttribute('name')));
+                .find(e => /[Pp]assword/.test(e.getAttribute('name')));
             return { username, pwd };
         };
         const triggerInputEvent = (element) => {

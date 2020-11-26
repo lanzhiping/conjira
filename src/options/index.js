@@ -13,6 +13,7 @@ const renderList = (listElement, secrets) => {
                 <span>${name}</span>
                 <span>${account}</span>
                 <span id="item-password">******</span>
+                <button id="item-copy">Copy</button>
                 <button id="item-update" disabled>Update</button>
                 <button id="item-delete">Delete</button>
             </div>
@@ -20,6 +21,16 @@ const renderList = (listElement, secrets) => {
     }).join('')
 
     listElement.innerHTML = secretElements;
+};
+
+const copyToClipBoard = (str) => {
+    const el = document.createElement('textarea');
+    el.style = 'color:transparent;background:transparent;height:1px;width:1px;';
+    document.body.appendChild(el);
+    el.value = str;
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
 };
 
 const revealPassword = async (passwordElement) => {
@@ -82,6 +93,12 @@ const onListClick = async (event, target, elements) => {
         const secretId = event.target.parentElement.getAttribute('data-id');
 
         removeSecret({ _id: secretId }).then(() => showSecrets(elements));
+    }
+
+    if (targetId === 'item-copy') {
+        const secretId = event.target.parentElement.getAttribute('data-id');
+        const secret = await loadSecretById(secretId);
+        copyToClipBoard(secret.password);
     }
 }
 
