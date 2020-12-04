@@ -13,8 +13,8 @@ const renderList = (listElement, secrets) => {
                 <span>${name}</span>
                 <span>${account}</span>
                 <span id="item-password">******</span>
-                <button id="item-copy">Copy</button>
                 <button id="item-update" disabled>Update</button>
+                <button id="item-copy">Copy</button>
                 <button id="item-delete">Delete</button>
             </div>
         `;
