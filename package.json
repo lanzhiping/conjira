@@ -15,7 +15,8 @@
     "eslint": "^6.8.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "zip-webpack-plugin": "^3.0.0"
+    "zip-webpack-plugin": "^3.0.0",
+    "serialize-javascript": ">=3.1.0"
   },
   "dependencies": {
     "crypto-random-string": "^3.2.0",
