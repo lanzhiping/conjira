@@ -9,19 +9,28 @@ const clientScript = (salt, encrypted) => `
                 .map(charCode => String.fromCharCode(charCode))
                 .join('');
         };
+
         const getInputs = () => {
             const username = [...document.querySelectorAll('input[type=text],input[type=email]')]
                 .find(e => /([Uu]ser[Nn]ame|[Ll]ogin)/.test(e.getAttribute('name')));
+
             const pwd = [...document.querySelectorAll('input[type=password]')]
                 .find(e => /[Pp]assword/.test(e.getAttribute('name')));
-            return { username, pwd };
+
+            return {
+                username,
+                pwd,
+            };
         };
+
         const triggerInputEvent = (element) => {
             const inputEvent = new Event('input', { bubbles: true, cancelable: true });
             const changeEvent = new Event('change', { bubbles: true, cancelable: true });
             element.dispatchEvent(inputEvent);
             element.dispatchEvent(changeEvent);
         };
+
+        const isHttps = window.location.protocol === 'https:';
         const { username, pwd } = getInputs();
         if (username) {
             username.value = '';
@@ -30,6 +39,7 @@ const clientScript = (salt, encrypted) => `
                 triggerInputEvent(username);
             }, 200);
         }
+
         if (pwd) {
             pwd.value = '';
             setTimeout(() => {
